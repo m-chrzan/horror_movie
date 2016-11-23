@@ -1,6 +1,7 @@
 #ifndef CITIZEN_H_
 #define CITIZEN_H_
 
+#include <algorithm>
 #include <cassert>
 #include <type_traits>
 
@@ -15,7 +16,6 @@ public:
 	void takeDamage(T damage) {
 		health_ = std::max<T>(health_ - damage, 0);
 	}
-// 	template <typename T>
 	typename std::enable_if<CAN_FIGHT, T>::type getAttackPower() { return 2*age_; }
 private:
 	T health_;
