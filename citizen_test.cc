@@ -60,10 +60,76 @@ void testSheriffConstructor() {
     finishTest();
 }
 
+void testTeenagerTakeDamage() {
+    beginTest();
+
+    Teenager<int> teen1(42, 13);
+    teen1.takeDamage(18);
+    checkEqual(teen1.getHealth(), 24, "Int damage taken.");
+
+    teen1.takeDamage(25);
+    checkEqual(teen1.getHealth(), 0, "Int health doesn't go below 0.");
+
+    Teenager<double> teen2(100.0, 14.0);
+    teen2.takeDamage(50.5);
+    checkEqual(teen2.getHealth(), 49.5, "Double damage taken.");
+    teen2.takeDamage(49.5);
+    checkEqual(teen2.getHealth(), 0.0, "Double damage taken again.");
+    teen2.takeDamage(50.0);
+    checkEqual(teen2.getHealth(), 0.0, "Double health doesn't go below 0.");
+
+    finishTest();
+}
+
+void testAdultTakeDamage() {
+    beginTest();
+
+    Adult<int> adult1(42, 42);
+    adult1.takeDamage(18);
+    checkEqual(adult1.getHealth(), 24, "Damage taken.");
+
+    adult1.takeDamage(25);
+    checkEqual(adult1.getHealth(), 0, "Health doesn't go below 0.");
+
+    Adult<double> adult2(100.0, 23.9);
+    adult2.takeDamage(50.5);
+    checkEqual(adult2.getHealth(), 49.5, "Double damage taken.");
+    adult2.takeDamage(49.5);
+    checkEqual(adult2.getHealth(), 0.0, "Double damage taken again.");
+    adult2.takeDamage(50.0);
+    checkEqual(adult2.getHealth(), 0.0, "Double health doesn't go below 0.");
+
+    finishTest();
+}
+
+void testSheriffTakeDamage() {
+    beginTest();
+
+    Sheriff<int> sheriff1(42, 42, 124);
+    sheriff1.takeDamage(18);
+    checkEqual(sheriff1.getHealth(), 24, "Damage taken.");
+
+    sheriff1.takeDamage(25);
+    checkEqual(sheriff1.getHealth(), 0, "Health doesn't go below 0.");
+
+    Sheriff<double> sheriff2(100.0, 23.9, 3.14);
+    sheriff2.takeDamage(50.5);
+    checkEqual(sheriff2.getHealth(), 49.5, "Double damage taken.");
+    sheriff2.takeDamage(49.5);
+    checkEqual(sheriff2.getHealth(), 0.0, "Double damage taken again.");
+    sheriff2.takeDamage(50.0);
+    checkEqual(sheriff2.getHealth(), 0.0, "Double health doesn't go below 0.");
+
+    finishTest();
+}
+
 int main() {
     testTeenagerConstructor();
     testAdultConstructor();
     testSheriffConstructor();
+    testTeenagerTakeDamage();
+    testAdultTakeDamage();
+    testSheriffTakeDamage();
 
     return 0;
 }

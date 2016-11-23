@@ -11,6 +11,9 @@ public:
     }
     T getHealth() const { return health_; }
     T getAge() const { return age_; }
+    void takeDamage(T damage) {
+        health_ = std::max<T>(health_ - damage, 0);
+    }
 protected:
     T health_;
     T age_;
