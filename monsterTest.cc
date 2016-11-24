@@ -44,8 +44,47 @@ void testTakeDamage() {
     finishTest();
 }
 
+void testAttack() {
+    beginTest();
+
+    Zombie<int> z(100, 20);
+    Teenager<int> t(42, 15);
+    attack(z, t);
+    checkEqual(t.getHealth(), 22, "Teenager has taken damage.");
+    checkEqual(z.getHealth(), 100, "Zombie has not taken damage.");
+    attack(z, t);
+    attack(z, t);
+    checkEqual<int>(t.getHealth(), 0, "Teenager down to 0 health.");
+
+    Mummy<double> m(4.2, 0.5);
+    Adult<double> a(2.1, 18.1);
+    attack(m, a);
+    checkEqual(a.getHealth(), 1.6, "Adult has taken damage.");
+    checkEqual(m.getHealth(), 4.2, "Mummy has not taken damage.");
+    attack(m, a);
+    attack(m, a);
+    attack(m, a);
+    checkEqual(a.getHealth(), 0.0, "Adult down to 0 health.");
+
+    Vampire<char> v(15, 4);
+    Sheriff<char> s(9, 99, 8);
+    attack(v, s);
+    checkEqual<char>(s.getHealth(), 5, "Sheriff has taken damage.");
+    checkEqual<char>(v.getHealth(), 7, "Vampire has taken damage.");
+    attack(v, s);
+    checkEqual<char>(s.getHealth(), 1, "Sheriff has taken damage.");
+    checkEqual<char>(v.getHealth(), 0, "Vampire down to 0 health.");
+
+    Vampire<char> v2(10, 2);
+    attack(v2, s);
+    checkEqual<char>(s.getHealth(), 0, "Sheriff down to 0 health.");
+
+    finishTest();
+}
+
 int main()
 {
     testMonsterConstructor();
     testTakeDamage();
+    testAttack();
 }
