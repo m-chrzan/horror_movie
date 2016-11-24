@@ -6,6 +6,8 @@
 
 template <typename T, int MIN_AGE, int MAX_AGE, bool CAN_FIGHT>
 class CitizenBase {
+    static_assert(std::is_arithmetic<T>::value,
+                  "Citizen parameter must be arithmetic.");
 public:
     CitizenBase(T const& health, T const& age) : health_(health), age_(age) {
         assert(age >= MIN_AGE && age <= MAX_AGE);
