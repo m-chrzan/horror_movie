@@ -5,9 +5,10 @@
 
 #include "citizen.h"
 
-template<typename T,
-         typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
+template<typename T>
 class Monster {
+	static_assert(std::is_arithmetic<T>::value,
+	              "Monster parameter must be arithmetic.");
 public:
 	Monster(T health, T attackPower) : health_(health),
 	                                   attackPower_(attackPower) {}
