@@ -10,8 +10,31 @@ public:
 	Monster(T health, T attackPower) : health_(health),
 	                                   attackPower_(attackPower) {}
 
+	T getHealth() const {return health_;}
+	T getAttackPower() const {return attackPower_;}
+
+	void takeDamage(T damage)
+	{
+		health_ = damage > health_ ? 0 : health_ - damage;
+	}
+
+	using valueType = T;
 private:
-	T health_, attackPower_;
+	T health_;
+	T attackPower_;
 };
+
+template<typename T>
+using Zombie = Monster<T>;
+
+template<typename T>
+using Vampire = Monster<T>;
+
+template<typename T>
+using Mummy = Monster<T>;
+
+
+template<typename M, typename U>
+void attack(M monster, U victim) {}
 
 #endif
