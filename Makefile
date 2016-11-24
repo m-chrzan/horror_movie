@@ -5,6 +5,8 @@ SRCS=citizen_test.cc monsterTest.cc
 
 .PHONY=clean
 
+all: citizen_test monsterTest
+
 citizen_test: citizen_test.o testing.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
