@@ -20,7 +20,32 @@ void testMonsterConstructor() {
     finishTest();
 }
 
+void testTakeDamage() {
+    beginTest();
+
+    Zombie<int> z(100, 2);
+    z.takeDamage(50);
+    checkEqual(z.getHealth(), 50, "Int damage taken.");
+
+    Mummy<double> m(50.42, 12.0);
+    m.takeDamage(5.42);
+    checkEqual(m.getHealth(), 45.0, "Double damage taken.");
+    m.takeDamage(45.0);
+    checkEqual(m.getHealth(), 0.0, "Double damage taken again.");
+    m.takeDamage(13.34);
+    checkEqual(m.getHealth(), 0.0, "Double health doesn't go below 0.");
+
+    Vampire<char> v(13, 12);
+    v.takeDamage(10);
+    checkEqual<char>(v.getHealth(), 3, "Char damage taken.");
+    v.takeDamage(10);
+    checkEqual<char>(v.getHealth(), 0, "Char health doesn't go below 0.");
+
+    finishTest();
+}
+
 int main()
 {
     testMonsterConstructor();
+    testTakeDamage();
 }
