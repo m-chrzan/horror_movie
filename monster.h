@@ -3,6 +3,8 @@
 
 #include <type_traits>
 
+#include "citizen.h"
+
 template<typename T,
          typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
 class Monster {
@@ -34,7 +36,7 @@ template<typename T>
 using Mummy = Monster<T>;
 
 
-template<typename M, typename U>
-void attack(M monster, U victim) {}
+template<typename T, typename U>
+void attack(Monster<T> monster, U victim) {}
 
 #endif
