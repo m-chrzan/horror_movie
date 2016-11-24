@@ -1,6 +1,7 @@
 #ifndef CITIZEN_H_
 #define CITIZEN_H_
 
+#include <algorithm>
 #include <cassert>
 
 template <typename T, int MIN_AGE, int MAX_AGE, bool CAN_FIGHT>
