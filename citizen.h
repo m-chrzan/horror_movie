@@ -5,39 +5,27 @@
 #include <cassert>
 
 template <typename T, int MIN_AGE, int MAX_AGE, bool CAN_FIGHT>
-class CitizenBase {
+class Citizen {
     static_assert(std::is_arithmetic<T>::value,
                   "Citizen parameter must be arithmetic.");
 public:
-    CitizenBase(T const& health, T const& age) : health_(health), age_(age) {
+    template <const bool fight = CAN_FIGHT, typename = std::enable_if_t<!fight>>
+    Citizen(T const& health, T const& age) : health_(health), age_(age) {
         assert(age >= MIN_AGE && age <= MAX_AGE);
     }
+    template <const bool fight = CAN_FIGHT, typename = std::enable_if_t<fight>>
+    Citizen(T const& health, T const& age, T const& attack_power) :
+        health_(health), age_(age), attack_power_(attack_power) {}
     T getHealth() const { return health_; }
     T getAge() const { return age_; }
     void takeDamage(T damage) {
         health_ = std::max<T>(health_ - damage, 0);
     }
+    template <const bool fight = CAN_FIGHT, typename = std::enable_if_t<fight>>
+    T getAttackPower() const { return attack_power_; }
 protected:
     T health_;
     T age_;
-};
-
-template <typename T, int MIN_AGE, int MAX_AGE, bool CAN_FIGHT>
-class Citizen : public CitizenBase<T, MIN_AGE, MAX_AGE, CAN_FIGHT> {
-public:
-    Citizen(T const& health, T const& age) :
-        CitizenBase<T, MIN_AGE, MAX_AGE, CAN_FIGHT>(health, age) {}
-};
-
-template <typename T, int MIN_AGE, int MAX_AGE>
-class Citizen<T, MIN_AGE, MAX_AGE, true> :
-    public CitizenBase<T, MIN_AGE, MAX_AGE, true> {
-public:
-    Citizen(T const& health, T const& age, T const& attack_power) :
-        CitizenBase<T, MIN_AGE, MAX_AGE, true>(health, age),
-        attack_power_(attack_power) {}
-    T getAttackPower() { return attack_power_; }
-private:
     T attack_power_;
 };
 
