@@ -7,6 +7,11 @@ SRCS=citizen_test.cc monsterTest.cc
 
 all: citizen_test monsterTest smalltown_test
 
+run_tests: citizen_test monsterTest smalltown_test
+	./citizen_test
+	./monsterTest
+	./smalltown_test
+
 citizen_test: citizen_test.o testing.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
