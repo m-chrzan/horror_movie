@@ -1,1 +1,4 @@
 *.o
+citizen_test
+monsterTest
+smalltown_test
