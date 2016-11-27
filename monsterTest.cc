@@ -64,6 +64,7 @@ void testAttack() {
     attack(m, a);
     attack(m, a);
     attack(m, a);
+    attack(m, a);
     checkEqual(a.getHealth(), 0.0, "Adult down to 0 health.");
 
     Vampire<char> v(15, 4);
