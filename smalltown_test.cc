@@ -1,6 +1,7 @@
+#include <tuple>
+
 #include "smalltown.h"
 #include "testing.h"
-#include <tuple>
 
 void testConstructor() {
     beginTest();
@@ -40,6 +41,7 @@ void testGetStatus() {
 
     finishTest();
 }
+
 
 int main() {
     testConstructor();
