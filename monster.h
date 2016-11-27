@@ -5,7 +5,7 @@
 
 #include "citizen.h"
 
-template<typename T>
+template<typename T, int ID>
 class Monster {
 	static_assert(std::is_arithmetic<T>::value,
 	              "Monster parameter must be arithmetic.");
@@ -28,25 +28,21 @@ private:
 };
 
 template<typename T>
-using Zombie = Monster<T>;
+using Zombie = Monster<T, 1>;
 
 template<typename T>
-using Vampire = Monster<T>;
+using Vampire = Monster<T, 2>;
 
 template<typename T>
-using Mummy = Monster<T>;
+using Mummy = Monster<T, 3>;
 
-
-template<typename T, typename U>
-void attack(const Monster<T>& monster, U& victim) {
-	static_assert(std::is_same<U, Teenager<typename U::valueType>>::value ||
-	              std::is_same<U, Adult<typename U::valueType>>::value,
-	              "Victim must be a Citizen.");
+template<typename M, typename V>
+void attack(const M& monster, V& victim) {
 	victim.takeDamage(monster.getAttackPower());
 }
 
-template<typename T, typename V>
-void attack(Monster<T>& monster, Sheriff<V>& victim) {
+template<typename M, typename T>
+void attack(M& monster, Sheriff<T>& victim) {
 	victim.takeDamage(monster.getAttackPower());
 	monster.takeDamage(victim.getAttackPower());
 }
