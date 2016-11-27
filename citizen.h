@@ -19,7 +19,7 @@ public:
     T getHealth() const { return health_; }
     T getAge() const { return age_; }
     void takeDamage(T damage) {
-        health_ = std::max<T>(health_ - damage, 0);
+        health_ = damage > health_ ? 0 : health_ - damage;
     }
     template <const bool fight = CAN_FIGHT, typename = std::enable_if_t<fight>>
     T getAttackPower() const { return attack_power_; }
