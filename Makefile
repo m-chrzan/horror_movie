@@ -1,7 +1,7 @@
 CXX=clang
 CXXFLAGS=-Wall -g -std=c++14 -lstdc++
 
-SRCS=citizen_test.cc monsterTest.cc
+SRCS=citizen_test.cc monsterTest.cc smalltown_test.cc
 
 .PHONY=clean
 
@@ -28,4 +28,4 @@ monsterTest.o: monster.h citizen.h
 smalltown_test.o: smalltown.h monster.h citizen.h
 
 clean:
-	rm -rf *.o $(SRCS:.cc=)
+	$(RM) *.o $(SRCS:.cc=)
