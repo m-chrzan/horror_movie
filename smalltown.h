@@ -89,23 +89,21 @@ private:
 	}
 	constexpr static size_t fibsNumber() {return fibsNumber(0, 1, 1);}
 
-    constexpr static std::array<U, fibsNumber()> genFibs()
+	template<U ...V>
+    constexpr static typename std::enable_if_t<fibsNumber() == sizeof...(V),
+		std::array<U, fibsNumber()>> genFibs(U f, U s)
 	{
-		U first = 0, second = 1;
-		std::array<U, fibsNumber()> res;
-		size_t idx = 0;
-		res[idx++] = first;
-		while (second <= end_of_day && second >= first) {
-			res[idx++] = second;
-			U tmp = first + second;
-			first = second;
-			second = tmp;
-		}
-		return res;
+		return std::array<U, fibsNumber()>{{V...}};
+	}
+	template<U ...V>
+	constexpr static typename std::enable_if_t<fibsNumber() != sizeof...(V),
+	std::array<U, fibsNumber()>> genFibs(U f = 0, U s = 1)
+	{
+		return genFibs<V..., f>(s, f + s);
 	}
 	static const std::array<U, fibsNumber()>& fibs()
 	{
-		static std::array<U, fibsNumber()> generatedOnce(genFibs()); //ASK w czasie kompilacji?
+		static std::array<U, fibsNumber()> generatedOnce(genFibs<>()); //ASK w czasie kompilacji?
 		return generatedOnce;
 	}
 };
