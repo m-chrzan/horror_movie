@@ -41,6 +41,11 @@ void testTakeDamage() {
     v.takeDamage(10);
     checkEqual<char>(v.getHealth(), 0, "Char health doesn't go below 0.");
 
+    Vampire<unsigned> v2(100, 14);
+    unsigned alot = 1000, zero = 0;
+    v2.takeDamage(alot);
+    checkEqual(v2.getHealth(), zero, "Unsigned health overflow.");
+
     finishTest();
 }
 
