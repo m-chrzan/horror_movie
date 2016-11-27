@@ -1,10 +1,8 @@
 #ifndef SMALLTOWN_H_
 #define SMALLTOWN_H_
 
-#include "monster.h"
-#include "citizen.h"
-#include <string>
 #include <list>
+#include <string>
 #include <tuple>
 #include <type_traits>
 
