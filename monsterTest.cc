@@ -1,6 +1,7 @@
 #include "citizen.h"
 #include "monster.h"
 #include "testing.h"
+#include <type_traits>
 
 void testMonsterConstructor() {
     beginTest();
@@ -88,9 +89,23 @@ void testAttack() {
     finishTest();
 }
 
+void testValueType() {
+    beginTest();
+
+    check(std::is_same<float, Zombie<float>::valueType>::value,
+            "Correct valueType in Zombie<float>.");
+    check(std::is_same<int, Vampire<int>::valueType>::value,
+            "Correct valueType in Vampire<int>.");
+    check(std::is_same<char, Mummy<char>::valueType>::value,
+            "Correct valueType in Mummy<char>.");
+
+    finishTest();
+}
+
 int main()
 {
     testMonsterConstructor();
     testTakeDamage();
     testAttack();
+    testValueType();
 }
