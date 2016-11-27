@@ -38,6 +38,17 @@ using Mummy = Monster<T>;
 
 
 template<typename T, typename U>
-void attack(Monster<T> monster, U victim) {}
+void attack(const Monster<T>& monster, U& victim) {
+	static_assert(std::is_same<U, Teenager<typename U::valueType>>::value ||
+	              std::is_same<U, Adult<typename U::valueType>>::value,
+	              "Victim must be a Citizen.");
+	victim.takeDamage(monster.getAttackPower());
+}
+
+template<typename T, typename V>
+void attack(Monster<T>& monster, Sheriff<V>& victim) {
+	victim.takeDamage(monster.getAttackPower());
+	monster.takeDamage(victim.getAttackPower());
+}
 
 #endif

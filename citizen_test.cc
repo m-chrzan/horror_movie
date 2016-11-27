@@ -78,6 +78,11 @@ void testTeenagerTakeDamage() {
     teen2.takeDamage(50.0);
     checkEqual(teen2.getHealth(), 0.0, "Double health doesn't go below 0.");
 
+    Teenager<unsigned> teen3(100, 14);
+    unsigned alot = 1000, zero = 0;
+    teen3.takeDamage(alot);
+    checkEqual(teen3.getHealth(), zero, "Unsigned health overflow.");
+
     finishTest();
 }
 

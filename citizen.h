@@ -23,7 +23,8 @@ public:
     }
     template <const bool fight = CAN_FIGHT, typename = std::enable_if_t<fight>>
     T getAttackPower() const { return attack_power_; }
-protected:
+    using valueType = T;
+private:
     T health_;
     T age_;
     T attack_power_;
