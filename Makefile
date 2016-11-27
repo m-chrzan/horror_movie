@@ -20,5 +20,7 @@ citizen_test.o: citizen.h
 
 monsterTest.o: monster.h citizen.h
 
+smalltown_test.o: smalltown.h monster.h citizen.h
+
 clean:
 	rm -rf *.o $(SRCS:.cc=)
