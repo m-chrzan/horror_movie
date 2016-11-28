@@ -9,7 +9,8 @@ class Citizen {
     static_assert(std::is_arithmetic<T>::value,
                   "Citizen parameter must be arithmetic.");
 public:
-    template<const bool can_fight = CAN_FIGHT, typename = std::enable_if_t<!can_fight>>
+    template<const bool can_fight = CAN_FIGHT,
+             typename = std::enable_if_t<!can_fight>>
     Citizen(T const& health, T const& age) : health_(health), age_(age) {
         assert(age >= MIN_AGE && age <= MAX_AGE);
     }
