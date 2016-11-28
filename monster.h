@@ -41,8 +41,8 @@ void attack(const M& monster, V& victim) {
 	victim.takeDamage(monster.getAttackPower());
 }
 
-template<typename M, typename T>
-void attack(M& monster, Sheriff<T>& victim) {
+template<typename M, typename V, std::enable_if_t<std::is_same(V, Sheriff<V::valueType>)>>
+void attack(M& monster, V& victim) {
 	victim.takeDamage(monster.getAttackPower());
 	monster.takeDamage(victim.getAttackPower());
 }
