@@ -43,7 +43,8 @@ void attack(const M& monster, V& victim) {
 template<typename M, typename T>
 void attack(M& monster, Sheriff<T>& victim) {
     victim.takeDamage(monster.getAttackPower());
-    monster.takeDamage(victim.getAttackPower());
+    if (victim.getHealth() != 0)
+        monster.takeDamage(victim.getAttackPower());
 }
 
 #endif
