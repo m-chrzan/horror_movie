@@ -56,15 +56,15 @@ private:
         return "Monster";
     }
     template<typename T>
-    static std::string getMonsterName(Monster<T, 1> const &m) {
+    static std::string getMonsterName(Monster<T, MonsterID::ZOMBIE> const &m) {
         return "Zombie";
     }
     template<typename T>
-    static std::string getMonsterName(Monster<T, 2> const &m) {
+    static std::string getMonsterName(Monster<T, MonsterID::VAMPIRE> const &m) {
         return "Vampire";
     }
     template<typename T>
-    static std::string getMonsterName(Monster<T, 3> const &m) {
+    static std::string getMonsterName(Monster<T, MonsterID::MUMMY> const &m) {
         return "Mummy";
     }
 

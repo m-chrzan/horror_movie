@@ -5,7 +5,11 @@
 
 #include "citizen.h"
 
-template<typename T, int ID>
+enum class MonsterID {
+    ZOMBIE, VAMPIRE, MUMMY
+};
+
+template<typename T, MonsterID ID>
 class Monster {
     static_assert(std::is_arithmetic<T>::value,
                   "Monster parameter must be arithmetic.");
@@ -27,13 +31,13 @@ private:
 };
 
 template<typename T>
-using Zombie = Monster<T, 1>;
+using Zombie = Monster<T, MonsterID::ZOMBIE>;
 
 template<typename T>
-using Vampire = Monster<T, 2>;
+using Vampire = Monster<T, MonsterID::VAMPIRE>;
 
 template<typename T>
-using Mummy = Monster<T, 3>;
+using Mummy = Monster<T, MonsterID::MUMMY>;
 
 template<typename M, typename V>
 void attack(const M& monster, V& victim) {
