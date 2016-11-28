@@ -11,7 +11,30 @@
 #include "citizen.h"
 #include "monster.h"
 
-template<typename M, typename U, U start_time, U end_of_day, typename... C>
+template<typename U, U end_of_day>
+constexpr static size_t fibsNumber(size_t f, size_t s, size_t r)
+{
+	return ((s > end_of_day) || (s < f) ? r : fibsNumber<U, end_of_day>(s, f + s, r + 1));
+}
+template<typename U, U end_of_day>
+constexpr static size_t fibsNumber() {return fibsNumber<U, end_of_day>(0, 1, 1);}
+
+
+template<typename U, size_t FN, U FIRST, U SECOND, U ...V>
+constexpr typename std::enable_if_t<FN == sizeof...(V),
+std::array<U, FN>> genFibs()
+{
+	return std::array<U, FN>{{V...}};
+}
+template<typename U, size_t FN, U FIRST, U SECOND, U ...V>
+constexpr typename std::enable_if_t<FN != sizeof...(V),
+std::array<U, FN>> genFibs()
+{
+	return genFibs<U, FN, SECOND, FIRST + SECOND, V..., FIRST>();
+}
+
+
+template <typename M, typename U, U start_time, U end_of_day, typename... C>
 class SmallTown {
     static_assert(std::is_integral<U>::value,
                   "The time type must be integral.");
@@ -79,29 +102,11 @@ private:
             --number_living_citizens_;
         attackAll<I + 1>();
     }
-
-    constexpr static size_t fibsNumber(size_t f, size_t s, size_t r) {
-        return ((s > end_of_day) || (s < f) ? r : fibsNumber(s, f + s, r + 1));
-    }
-    constexpr static size_t fibsNumber() { return fibsNumber(1, 1, 1); }
-
-    constexpr static std::array<U, fibsNumber()> genFibs() {
-        U first = 1, second = 1;
-        std::array<U, fibsNumber()> res;
-        size_t idx = 0;
-        res[idx++] = first;
-        while (second <= end_of_day && second >= first) {
-            res[idx++] = second;
-            U tmp = first + second;
-            first = second;
-            second = tmp;
-        }
-        return res;
-    }
-    static const std::array<U, fibsNumber()>& fibs() {
-        static std::array<U, fibsNumber()> generatedOnce(genFibs());
-        return generatedOnce;
-    }
+	static const std::array<U, fibsNumber<U, end_of_day>()>& fibs()
+	{
+		static std::array<U, fibsNumber<U, end_of_day>()> generatedOnce(genFibs<U, fibsNumber<U, end_of_day>(), 1, 2>());
+		return generatedOnce;
+	}
 };
 
 #endif

@@ -62,33 +62,33 @@ void testTick() {
     std::cout << "Citizens should win:\n";
     town1.tick(1);
 
-    SmallTown<Zombie<double>, unsigned char, 42, 255, Teenager<float>,
-    Sheriff<unsigned>, Adult<long>>
-    town2(Zombie<double>(3.14, 4.13), Teenager<float>(0.03, 12.32),
-          Sheriff<unsigned>(12, 23, 3), Adult<long>(41, 21));
-
-    checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 3.14, 3),
-               "Initial town2 status correct.");
-
-    town2.tick(1);
-    checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 3.14, 3),
-               "town2 after tick(1) status correct.");
-
-    town2.tick(12);
-    checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 3.14, 3),
-               "town2 after tick(12) status correct.");
-
-    town2.tick(34);
-    //0.14 is probably not represantable by double, need checkEqual with tolerance
-    checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 0.14000000000000012, 2),
-               "town2 after tick(34) status correct.");
-
-    town2.tick(66);
-    checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 0., 2),
-               "town2 after tick(66) status correct.");
-
-    std::cout << "Citizens should win:\n";
-    town2.tick(1);
+//     SmallTown<Zombie<double>, unsigned char, 42, 255, Teenager<float>,
+//     Sheriff<unsigned>, Adult<long>>
+//     town2(Zombie<double>(3.14, 4.13), Teenager<float>(0.03, 12.32),
+//           Sheriff<unsigned>(12, 23, 3), Adult<long>(41, 21));
+//
+//     checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 3.14, 3),
+//                "Initial town2 status correct.");
+//
+//     town2.tick(1);
+//     checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 3.14, 3),
+//                "town2 after tick(1) status correct.");
+//
+//     town2.tick(12);
+//     checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 3.14, 3),
+//                "town2 after tick(12) status correct.");
+//
+//     town2.tick(34);
+//     //0.14 is probably not represantable by double, need checkEqual with tolerance
+//     checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 0.14000000000000012, 2),
+//                "town2 after tick(34) status correct.");
+//
+//     town2.tick(66);
+//     checkEqual(town2.getStatus(), std::make_tuple<std::string, double, size_t>("Zombie", 0., 2),
+//                "town2 after tick(66) status correct.");
+//
+//     std::cout << "Citizens should win:\n";
+//     town2.tick(1);
 
     finishTest();
 }
