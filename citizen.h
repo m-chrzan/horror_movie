@@ -17,14 +17,18 @@ public:
              typename = std::enable_if_t<can_fight>>
     Citizen(T const& health, T const& age, T const& attack_power) :
         health_(health), age_(age), attack_power_(attack_power) {}
+
     T getHealth() const { return health_; }
     T getAge() const { return age_; }
+
     void takeDamage(T damage) {
         health_ = damage > health_ ? 0 : health_ - damage;
     }
+
     template<const bool can_fight = CAN_FIGHT,
              typename = std::enable_if_t<can_fight>>
     T getAttackPower() const { return attack_power_; }
+
     using valueType = T;
 private:
     T health_;
