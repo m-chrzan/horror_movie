@@ -20,7 +20,7 @@ class SmallTown {
 
 public:
     SmallTown(M monster, C... citizens) : monster_(monster),
-                                          citizens_(citizens...) {} //ASK sprawdzenie czy są Citizen
+                                          citizens_(citizens...) {}
 
     std::tuple<std::string, typename M::valueType, size_t> getStatus() {
         return std::make_tuple(getMonsterName(monster_), monster_.getHealth(),
@@ -105,7 +105,7 @@ private:
 	}
 	static const std::array<U, fibsNumber()>& fibs()
 	{
-		static std::array<U, fibsNumber()> generatedOnce(genFibs()); //ASK w czasie kompilacji?
+		static std::array<U, fibsNumber()> generatedOnce(genFibs());
 		return generatedOnce;
 	}
 };
