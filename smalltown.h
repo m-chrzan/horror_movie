@@ -11,7 +11,7 @@
 #include "citizen.h"
 #include "monster.h"
 
-template <typename M, typename U, U start_time, U end_of_day, typename... C>
+template<typename M, typename U, U start_time, U end_of_day, typename... C>
 class SmallTown {
     static_assert(std::is_arithmetic<U>::value,
                   "The time type must be arithmetic.");
