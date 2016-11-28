@@ -13,11 +13,10 @@ public:
 	Monster(T health, T attackPower) : health_(health),
 	                                   attackPower_(attackPower) {}
 
-	T getHealth() const {return health_;}
-	T getAttackPower() const {return attackPower_;}
+	T getHealth() const { return health_; }
+	T getAttackPower() const { return attackPower_; }
 
-	void takeDamage(T damage)
-	{
+	void takeDamage(T damage) {
 		health_ = damage > health_ ? 0 : health_ - damage;
 	}
 

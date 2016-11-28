@@ -27,8 +27,7 @@ public:
                                number_living_citizens_);
     }
 
-    void tick(U timestep)
-	{
+    void tick(U timestep) {
 		if (monster_.getHealth() == 0) {
 			if (number_living_citizens_ == 0)
 				std::cout << "DRAW\n";
@@ -71,11 +70,9 @@ private:
     }
 
     template<size_t I = 0>
-    inline typename std::enable_if_t<I == sizeof...(C)> attackAll()
-	{}
+    inline typename std::enable_if_t<I == sizeof...(C)> attackAll() {}
 	template<size_t I = 0>
-	inline typename std::enable_if_t<I < sizeof...(C)> attackAll()
-	{
+	inline typename std::enable_if_t<I < sizeof...(C)> attackAll() {
 		bool wasAlive = std::get<I>(citizens_).getHealth() != 0;
 		attack(monster_, std::get<I>(citizens_));
 		if (wasAlive && std::get<I>(citizens_).getHealth() == 0)
@@ -83,14 +80,12 @@ private:
 		attackAll<I + 1>();
 	}
 
-	constexpr static size_t fibsNumber(size_t f, size_t s, size_t r)
-	{
+	constexpr static size_t fibsNumber(size_t f, size_t s, size_t r) {
 		return ((s > end_of_day) || (s < f) ? r : fibsNumber(s, f + s, r + 1));
 	}
-	constexpr static size_t fibsNumber() {return fibsNumber(0, 1, 1);}
+	constexpr static size_t fibsNumber() { return fibsNumber(0, 1, 1); }
 
-    constexpr static std::array<U, fibsNumber()> genFibs()
-	{
+    constexpr static std::array<U, fibsNumber()> genFibs() {
 		U first = 0, second = 1;
 		std::array<U, fibsNumber()> res;
 		size_t idx = 0;
@@ -103,8 +98,7 @@ private:
 		}
 		return res;
 	}
-	static const std::array<U, fibsNumber()>& fibs()
-	{
+	static const std::array<U, fibsNumber()>& fibs() {
 		static std::array<U, fibsNumber()> generatedOnce(genFibs());
 		return generatedOnce;
 	}
