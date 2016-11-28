@@ -83,10 +83,10 @@ private:
     constexpr static size_t fibsNumber(size_t f, size_t s, size_t r) {
         return ((s > end_of_day) || (s < f) ? r : fibsNumber(s, f + s, r + 1));
     }
-    constexpr static size_t fibsNumber() { return fibsNumber(0, 1, 1); }
+    constexpr static size_t fibsNumber() { return fibsNumber(1, 1, 1); }
 
     constexpr static std::array<U, fibsNumber()> genFibs() {
-        U first = 0, second = 1;
+        U first = 1, second = 1;
         std::array<U, fibsNumber()> res;
         size_t idx = 0;
         res[idx++] = first;
