@@ -13,7 +13,8 @@ public:
     Citizen(T const& health, T const& age) : health_(health), age_(age) {
         assert(age >= MIN_AGE && age <= MAX_AGE);
     }
-    template<const bool fight = CAN_FIGHT, typename = std::enable_if_t<fight>>
+    template<const bool can_fight = CAN_FIGHT,
+             typename = std::enable_if_t<can_fight>>
     Citizen(T const& health, T const& age, T const& attack_power) :
         health_(health), age_(age), attack_power_(attack_power) {}
     T getHealth() const { return health_; }
@@ -21,7 +22,8 @@ public:
     void takeDamage(T damage) {
         health_ = damage > health_ ? 0 : health_ - damage;
     }
-    template<const bool fight = CAN_FIGHT, typename = std::enable_if_t<fight>>
+    template<const bool can_fight = CAN_FIGHT,
+             typename = std::enable_if_t<can_fight>>
     T getAttackPower() const { return attack_power_; }
     using valueType = T;
 private:
