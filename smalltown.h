@@ -17,12 +17,11 @@ class SmallTown {
                   "The time type must be arithmetic.");
     static_assert(start_time <= end_of_day,
                   "Start time must be before end time.");
-
 public:
     SmallTown(M monster, C... citizens) : monster_(monster),
                                           citizens_(citizens...) {}
 
-    std::tuple<std::string, typename M::valueType, size_t> getStatus() {
+    std::tuple<std::string, typename M::valueType, size_t> getStatus() const {
         return std::make_tuple(getMonsterName(monster_), monster_.getHealth(),
                                number_living_citizens_);
     }
