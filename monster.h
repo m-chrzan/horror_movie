@@ -1,6 +1,7 @@
 #ifndef MONSTER_H_
 #define MONSTER_H_
 
+#include <cassert>
 #include <type_traits>
 
 #include "citizen.h"
@@ -15,7 +16,10 @@ class Monster {
                   "Monster parameter must be arithmetic.");
 public:
     Monster(T health, T attackPower) : health_(health),
-                                       attackPower_(attackPower) {}
+                                       attackPower_(attackPower) {
+        assert(health > 0);
+        assert(attackPower > 0);
+    }
 
     T getHealth() const { return health_; }
     T getAttackPower() const { return attackPower_; }

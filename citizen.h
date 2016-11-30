@@ -13,12 +13,15 @@ public:
              typename = std::enable_if_t<!can_fight>>
     Citizen(T const& health, T const& age) : health_(health), age_(age) {
         assert(age >= MIN_AGE && age <= MAX_AGE);
+        assert(health > 0);
     }
     template<const bool can_fight = CAN_FIGHT,
              typename = std::enable_if_t<can_fight>>
     Citizen(T const& health, T const& age, T const& attack_power) :
         health_(health), age_(age), attack_power_(attack_power) {
         assert(age >= MIN_AGE && age <= MAX_AGE);
+        assert(health > 0);
+        assert(attack_power > 0);
     }
 
     T getHealth() const { return health_; }
