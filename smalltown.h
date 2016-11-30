@@ -13,8 +13,8 @@
 
 template<typename M, typename U, U start_time, U end_of_day, typename... C>
 class SmallTown {
-    static_assert(std::is_arithmetic<U>::value,
-                  "The time type must be arithmetic.");
+    static_assert(std::is_integral<U>::value,
+                  "The time type must be integral.");
     static_assert(start_time <= end_of_day,
                   "Start time must be before end time.");
 public:
