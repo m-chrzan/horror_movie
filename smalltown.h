@@ -34,7 +34,7 @@ class SmallTown {
     static_assert(START_TIME <= END_OF_DAY,
                   "Start time must be before end time.");
 public:
-    SmallTown(M monster, C... citizens) : monster_(monster),
+    SmallTown(M const& monster, C const &... citizens) : monster_(monster),
                                           citizens_(citizens...) {}
 
     std::tuple<std::string, typename M::valueType, size_t> getStatus() const {
@@ -43,7 +43,7 @@ public:
                                numberLivingCitizens_);
     }
 
-    void tick(U timestep) {
+    void tick(U const& timestep) {
         if (monster_.getHealth() == 0) {
             if (numberLivingCitizens_ == 0)
                 std::cout << "DRAW\n";
