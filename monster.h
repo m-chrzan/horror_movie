@@ -15,8 +15,8 @@ class Monster {
     static_assert(std::is_arithmetic<T>::value,
                   "Monster parameter must be arithmetic.");
 public:
-    Monster(T health, T attackPower) : health_(health),
-                                       attackPower_(attackPower) {
+    Monster(T const& health, T const& attackPower) : health_(health),
+                                                     attackPower_(attackPower) {
         assert(health > 0);
         assert(attackPower > 0);
     }
@@ -24,7 +24,7 @@ public:
     T getHealth() const { return health_; }
     T getAttackPower() const { return attackPower_; }
 
-    void takeDamage(T damage) {
+    void takeDamage(T const& damage) {
         health_ = damage > health_ ? 0 : health_ - damage;
     }
 
@@ -47,7 +47,6 @@ template<typename M, typename V>
 void attack(const M& monster, V& victim) {
     victim.takeDamage(monster.getAttackPower());
 }
-
 template<typename M,
          typename V,
          typename = std::enable_if_t<std::is_same<V, Sheriff<typename V::valueType>>::value>>
