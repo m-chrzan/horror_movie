@@ -17,29 +17,28 @@ public:
     }
     template<const bool can_fight = CAN_FIGHT,
              typename = std::enable_if_t<can_fight>>
-    Citizen(T const& health, T const& age, T const& attack_power) :
-        health_(health), age_(age), attack_power_(attack_power) {
+    Citizen(T const& health, T const& age, T const& attackPower) :
+        health_(health), age_(age), attackPower_(attackPower) {
         assert(age >= MIN_AGE && age <= MAX_AGE);
         assert(health > 0);
-        assert(attack_power > 0);
+        assert(attackPower > 0);
     }
 
     T getHealth() const { return health_; }
     T getAge() const { return age_; }
-
-    void takeDamage(T damage) {
-        health_ = damage > health_ ? 0 : health_ - damage;
-    }
-
     template<const bool can_fight = CAN_FIGHT,
              typename = std::enable_if_t<can_fight>>
-    T getAttackPower() const { return attack_power_; }
+    T getAttackPower() const { return attackPower_; }
+
+    void takeDamage(T const& damage) {
+        health_ = damage > health_ ? 0 : health_ - damage;
+    }
 
     using valueType = T;
 private:
     T health_;
     T age_;
-    T attack_power_;
+    T attackPower_;
 };
 
 template<typename T>
