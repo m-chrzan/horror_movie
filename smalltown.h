@@ -13,25 +13,23 @@
 
 template<typename U, U END_OF_DAY>
 constexpr static size_t fibsNumber(size_t f, size_t s, size_t r) {
-	return ((s > END_OF_DAY) || (s < f) ? r : fibsNumber<U, END_OF_DAY>(s, f + s, r + 1));
+    return ((s > END_OF_DAY) || (s < f) ? r : fibsNumber<U, END_OF_DAY>(s, f + s, r + 1));
 }
 template<typename U, U END_OF_DAY>
 constexpr static size_t fibsNumber() {
     return fibsNumber<U, END_OF_DAY>(0, 1, 1);
 }
 
-
 template<typename U, size_t FN, U FIRST, U SECOND, U ...V>
 constexpr typename std::enable_if_t<FN == sizeof...(V),
 std::array<U, FN>> genFibs() {
-	return std::array<U, FN>{{V...}};
+    return std::array<U, FN>{{V...}};
 }
 template<typename U, size_t FN, U FIRST, U SECOND, U ...V>
 constexpr typename std::enable_if_t<FN != sizeof...(V),
 std::array<U, FN>> genFibs() {
-	return genFibs<U, FN, SECOND, static_cast<U>(FIRST + SECOND), V..., FIRST>();
+    return genFibs<U, FN, SECOND, static_cast<U>(FIRST + SECOND), V..., FIRST>();
 }
-
 
 template <typename M, typename U, U START_TIME, U END_OF_DAY, typename... C>
 class SmallTown {
@@ -103,11 +101,12 @@ private:
             --numberLivingCitizens_;
         attackAll<I + 1>();
     }
-	static const std::array<U, fibsNumber<U, END_OF_DAY>()>& fibs() {
-		static std::array<U, fibsNumber<U, END_OF_DAY>()> 
+
+    static const std::array<U, fibsNumber<U, END_OF_DAY>()>& fibs() {
+        static std::array<U, fibsNumber<U, END_OF_DAY>()>
             generatedOnce(genFibs<U, fibsNumber<U, END_OF_DAY>(), 1, 2>());
-		return generatedOnce;
-	}
+        return generatedOnce;
+    }
 };
 
 #endif
