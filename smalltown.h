@@ -11,71 +11,72 @@
 #include "citizen.h"
 #include "monster.h"
 
-template<typename U, U end_of_day>
-constexpr static size_t fibsNumber(size_t f, size_t s, size_t r)
-{
-	return ((s > end_of_day) || (s < f) ? r : fibsNumber<U, end_of_day>(s, f + s, r + 1));
+template<typename U, U END_OF_DAY>
+constexpr static size_t fibsNumber(size_t f, size_t s, size_t r) {
+	return ((s > END_OF_DAY) || (s < f) ? r : fibsNumber<U, END_OF_DAY>(s, f + s, r + 1));
 }
-template<typename U, U end_of_day>
-constexpr static size_t fibsNumber() {return fibsNumber<U, end_of_day>(0, 1, 1);}
+template<typename U, U END_OF_DAY>
+constexpr static size_t fibsNumber() {
+    return fibsNumber<U, END_OF_DAY>(0, 1, 1);
+}
 
 
 template<typename U, size_t FN, U FIRST, U SECOND, U ...V>
 constexpr typename std::enable_if_t<FN == sizeof...(V),
-std::array<U, FN>> genFibs()
-{
+std::array<U, FN>> genFibs() {
 	return std::array<U, FN>{{V...}};
 }
 template<typename U, size_t FN, U FIRST, U SECOND, U ...V>
 constexpr typename std::enable_if_t<FN != sizeof...(V),
-std::array<U, FN>> genFibs()
-{
+std::array<U, FN>> genFibs() {
 	return genFibs<U, FN, SECOND, FIRST + SECOND, V..., FIRST>();
 }
 
 
-template <typename M, typename U, U start_time, U end_of_day, typename... C>
+template <typename M, typename U, U START_TIME, U END_OF_DAY, typename... C>
 class SmallTown {
     static_assert(std::is_integral<U>::value,
                   "The time type must be integral.");
-    static_assert(start_time >= 0, "Start time must be non-negative.");
-    static_assert(start_time <= end_of_day,
+    static_assert(START_TIME >= 0, "Start time must be non-negative.");
+    static_assert(START_TIME <= END_OF_DAY,
                   "Start time must be before end time.");
 public:
     SmallTown(M monster, C... citizens) : monster_(monster),
                                           citizens_(citizens...) {}
 
     std::tuple<std::string, typename M::valueType, size_t> getStatus() const {
-        return std::make_tuple(getMonsterName(monster_), monster_.getHealth(),
-                               number_living_citizens_);
+        return std::make_tuple(getMonsterName(monster_),
+                               monster_.getHealth(),
+                               numberLivingCitizens_);
     }
 
     void tick(U timestep) {
         if (monster_.getHealth() == 0) {
-            if (number_living_citizens_ == 0)
+            if (numberLivingCitizens_ == 0)
                 std::cout << "DRAW\n";
             else
                 std::cout << "CITIZENS WON\n";
             return;
-        } else if (number_living_citizens_ == 0) {
+        } else if (numberLivingCitizens_ == 0) {
             std::cout << "MONSTER WON\n";
             return;
         }
 
-        if (std::binary_search(fibs().begin(), fibs().end(), current_time_))
+        if (std::binary_search(fibs().begin(), fibs().end(), currentTime_))
             attackAll();
 
-        current_time_ += timestep;
-        current_time_ %= end_of_day + 1;
+        currentTime_ += timestep;
+        currentTime_ %= END_OF_DAY + 1;
     }
 private:
-    U current_time_ = start_time;
+    U currentTime_ = START_TIME;
     M monster_;
     std::tuple<C...> citizens_;
-    size_t number_citizens_ = std::tuple_size<std::tuple<C...>>::value;
-    size_t number_living_citizens_ = number_citizens_;
 
-    template<typename T, int ID>
+    size_t numberCitizens_ = std::tuple_size<std::tuple<C...>>::value;
+    size_t numberLivingCitizens_ = numberCitizens_;
+
+    template<typename T, MonsterID ID>
     static std::string getMonsterName(Monster<T, ID> const &m) {
         return "Monster";
     }
@@ -99,12 +100,12 @@ private:
         bool wasAlive = std::get<I>(citizens_).getHealth() != 0;
         attack(monster_, std::get<I>(citizens_));
         if (wasAlive && std::get<I>(citizens_).getHealth() == 0)
-            --number_living_citizens_;
+            --numberLivingCitizens_;
         attackAll<I + 1>();
     }
-	static const std::array<U, fibsNumber<U, end_of_day>()>& fibs()
-	{
-		static std::array<U, fibsNumber<U, end_of_day>()> generatedOnce(genFibs<U, fibsNumber<U, end_of_day>(), 1, 2>());
+	static const std::array<U, fibsNumber<U, END_OF_DAY>()>& fibs() {
+		static std::array<U, fibsNumber<U, END_OF_DAY>()> 
+            generatedOnce(genFibs<U, fibsNumber<U, END_OF_DAY>(), 1, 2>());
 		return generatedOnce;
 	}
 };
