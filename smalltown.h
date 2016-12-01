@@ -21,12 +21,12 @@ std::array<U, FN>> generateFibonacciNumbers() {
 template<typename U, size_t FN, U FIB_LAST, U FIB_CURR, U ...V>
 constexpr typename std::enable_if_t<FN != sizeof...(V),
 std::array<U, FN>> generateFibonacciNumbers() {
-    return generateFibonacciNumbers<U, FN, FIB_CURR,
-                                    static_cast<U>(FIB_LAST + FIB_CURR), V...,
-                                    FIB_LAST>();
+    return generateFibonacciNumbers<U, FN,
+                                    FIB_CURR, static_cast<U>(FIB_LAST + FIB_CURR),
+                                    V..., FIB_LAST>();
 }
 
-template <typename M, typename U, U START_TIME, U END_OF_DAY, typename... C>
+template<typename M, typename U, U START_TIME, U END_OF_DAY, typename... C>
 class SmallTown {
     static_assert(std::is_integral<U>::value,
                   "The time type must be integral.");
@@ -99,7 +99,7 @@ private:
 
     // Recursively count how many Fibonacci numbers are <= END_OF_DAY.
     constexpr static size_t numberOfFibs(size_t f, size_t s, size_t r) {
-        return ((s > END_OF_DAY) || (s < f) ? r : numberOfFibs(s, f + s, r + 1));
+        return (s > END_OF_DAY) || (s < f) ? r : numberOfFibs(s, f + s, r + 1);
     }
     constexpr static size_t numberOfFibs() {
         return numberOfFibs(0, 1, 1);
