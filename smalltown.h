@@ -11,13 +11,13 @@
 #include "citizen.h"
 #include "monster.h"
 
-//this is case where all Fibonacci numbers are in V
+// If we have generated FN numbers, return the contents of V as a std::array.
 template<typename U, size_t FN, U FIB_LAST, U FIB_CURR, U ...V>
 constexpr typename std::enable_if_t<FN == sizeof...(V),
 std::array<U, FN>> generateFibonacciNumbers() {
     return std::array<U, FN>{{V...}};
 }
-//this case adds next Fibonacci number to V
+// If we haven't generated FN numbers yet, add the next to the V parameter pack.
 template<typename U, size_t FN, U FIB_LAST, U FIB_CURR, U ...V>
 constexpr typename std::enable_if_t<FN != sizeof...(V),
 std::array<U, FN>> generateFibonacciNumbers() {
@@ -97,7 +97,7 @@ private:
         attackAll<I + 1>();
     }
 
-    //fibsnumber counts fibonacci numbers <= END_OF_DAY
+    // Recursively count how many Fibonacci numbers are <= END_OF_DAY.
     constexpr static size_t numberOfFibs(size_t f, size_t s, size_t r) {
         return ((s > END_OF_DAY) || (s < f) ? r : numberOfFibs(s, f + s, r + 1));
     }
