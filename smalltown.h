@@ -30,7 +30,7 @@ template<typename U, size_t FN, U FIRST, U SECOND, U ...V>
 constexpr typename std::enable_if_t<FN != sizeof...(V),
 std::array<U, FN>> genFibs()
 {
-	return genFibs<U, FN, SECOND, FIRST + SECOND, V..., FIRST>();
+	return genFibs<U, FN, SECOND, static_cast<U>(FIRST + SECOND), V..., FIRST>();
 }
 
 
