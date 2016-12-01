@@ -56,6 +56,11 @@ void testTick() {
 
     town1.tick(1);
 
+    checkEqual(town1.getStatus(), std::make_tuple<std::string, int, size_t>("Vampire", 3, 3),
+               "town1 after tick(1) status correct.");
+
+    town1.tick(1);
+
     checkEqual(town1.getStatus(), std::make_tuple<std::string, int, size_t>("Vampire", 0, 3),
                "town1 after tick(1) status correct.");
 
