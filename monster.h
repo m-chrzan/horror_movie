@@ -43,10 +43,12 @@ using Vampire = Monster<T, MonsterID::VAMPIRE>;
 template<typename T>
 using Mummy = Monster<T, MonsterID::MUMMY>;
 
+// Monster attacks any victim.
 template<typename M, typename V>
 void attack(const M& monster, V& victim) {
     victim.takeDamage(monster.getAttackPower());
 }
+// Specialization. Monster attacks a Sheriff.
 template<typename M,
          typename V,
          typename = std::enable_if_t<std::is_same<V, Sheriff<typename V::valueType>>::value>>

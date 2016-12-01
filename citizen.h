@@ -9,12 +9,14 @@ class Citizen {
     static_assert(std::is_arithmetic<T>::value,
                   "Citizen parameter must be arithmetic.");
 public:
+    // Constructor for citizens who cannot fight.
     template<const bool can_fight = CAN_FIGHT,
              typename = std::enable_if_t<!can_fight>>
     Citizen(T const& health, T const& age) : health_(health), age_(age) {
         assert(age >= MIN_AGE && age <= MAX_AGE);
         assert(health > 0);
     }
+    // Constructor for citizens who can fight.
     template<const bool can_fight = CAN_FIGHT,
              typename = std::enable_if_t<can_fight>>
     Citizen(T const& health, T const& age, T const& attackPower) :
@@ -26,6 +28,7 @@ public:
 
     T getHealth() const { return health_; }
     T getAge() const { return age_; }
+    // Getter needed only for citizens who can fight.
     template<const bool can_fight = CAN_FIGHT,
              typename = std::enable_if_t<can_fight>>
     T getAttackPower() const { return attackPower_; }
