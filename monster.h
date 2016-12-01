@@ -52,9 +52,9 @@ template<typename M,
          typename V,
          typename = std::enable_if_t<std::is_same<V, Sheriff<typename V::valueType>>::value>>
 void attack(M& monster, V& victim) {
-    victim.takeDamage(monster.getAttackPower());
     if (victim.getHealth() != 0)
         monster.takeDamage(victim.getAttackPower());
+    victim.takeDamage(monster.getAttackPower());
 }
 
 #endif
